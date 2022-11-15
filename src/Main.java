@@ -23,9 +23,9 @@ class Main {
         // System.out.println("Files in the new_ver_list = " + new_ver_list.size());
 
         for (String n : new_ver_list) {
-            System.out.println(n);
+            // System.out.println(n);
             String o = n.replace("please_put_new_version_here", "please_put_old_version_here");
-            System.out.println(o);
+            // System.out.println(o);
             int compareResult;
 
             try {
@@ -38,19 +38,19 @@ class Main {
             switch (compareResult) {
                 case 1:
                     // code block
-                    System.out.println("Files are same" + "\n");
+                    System.out.println(n + " file is same" + "\n");
                     break;
                 case 2:
                     // code block
-                    System.out.println("Files are not same" + "\n");
+                    System.out.println(n + " files is not same" + "\n");
                     break;
                 case 3:
                     // code block
-                    System.out.println("Added new file" + "\n");
+                    System.out.println(n + " added new file" + "\n");
                     break;
                 case 4:
                     // code block
-                    System.out.println("Deleted old file" + "\n");
+                    System.out.println(o + " Deleted old file" + "\n");
                     break;
                 default:
                     // code block
@@ -71,6 +71,12 @@ class Main {
     public static int filesCompareByLine(String o, String n) throws IOException {
         Path path1 = Paths.get(o);
         Path path2 = Paths.get(n);
+        if (path2.toFile().exists() && ! path1.toFile().exists()) {
+            return 3;
+        }
+        if (path1.toFile().exists() && ! path2.toFile().exists()) {
+            return 4;
+        }
         try (BufferedReader bf1 = Files.newBufferedReader(path1);
                 BufferedReader bf2 = Files.newBufferedReader(path2)) {
             // long lineNumber = 1;
