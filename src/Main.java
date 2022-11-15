@@ -22,6 +22,7 @@ class Main {
         // System.out.println(new_ver_list);
         // System.out.println("Files in the new_ver_list = " + new_ver_list.size());
 
+        // Check same, not same, added file
         for (String n : new_ver_list) {
             // System.out.println(n);
             String o = n.replace("please_put_new_version_here", "please_put_old_version_here");
@@ -48,34 +49,42 @@ class Main {
                     // code block
                     System.out.println(n + " added new file" + "\n");
                     break;
-                case 4:
-                    // code block
-                    System.out.println(o + " Deleted old file" + "\n");
-                    break;
                 default:
                     // code block
                     System.out.println("compareResult error");
             }
         }
 
+        // Check deleted file
+        for (String o : old_ver_list) {
+            // System.out.println(o);
+            String n = o.replace("please_put_old_version_here", "please_put_new_version_here");
+            // System.out.println(n);
+
+            Path path1 = Paths.get(o);
+            Path path2 = Paths.get(n);
+
+            if (path1.toFile().exists() && !path2.toFile().exists()) {
+                System.out.println(o + " deleted old file" + "\n");
+            }
+
+        }
+
     }
 
     /**
      * Compare two files
-     * @param output = 1, same
-     * @param output = 2, not same
-     * @param output = 3, added
-     * @param output = 4, deleted
+     * 
+     * @param output     = 1, same
+     * @param output     = 2, not same
+     * @param output     = 3, added
      * @param lineNumber to store the different line, not used in this stage
      */
     public static int filesCompareByLine(String o, String n) throws IOException {
         Path path1 = Paths.get(o);
         Path path2 = Paths.get(n);
-        if (path2.toFile().exists() && ! path1.toFile().exists()) {
+        if (path2.toFile().exists() && !path1.toFile().exists()) {
             return 3;
-        }
-        if (path1.toFile().exists() && ! path2.toFile().exists()) {
-            return 4;
         }
         try (BufferedReader bf1 = Files.newBufferedReader(path1);
                 BufferedReader bf2 = Files.newBufferedReader(path2)) {
