@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 class Main {
-    private static final String OLD_VERSION_PATH = "please_put_the_old_version_here";
-    private static final String NEW_VERSION_PATH = "please_put_the_new_version_here";
+    private static final String OLD_VERSION_PATH = "please_put_old_version_here";
+    private static final String NEW_VERSION_PATH = "please_put_new_version_here";
 
     public static void main(String[] args) {
         List<String> old_ver_list = new ArrayList<>();
@@ -24,7 +24,7 @@ class Main {
 
         for (String n : new_ver_list) {
             System.out.println(n);
-            String o = n.replace("please_put_the_new_version_here", "please_put_the_old_version_here");
+            String o = n.replace("please_put_new_version_here", "please_put_old_version_here");
             System.out.println(o);
             int compareResult;
 
@@ -73,14 +73,14 @@ class Main {
         Path path2 = Paths.get(n);
         try (BufferedReader bf1 = Files.newBufferedReader(path1);
                 BufferedReader bf2 = Files.newBufferedReader(path2)) {
-            long lineNumber = 1;
+            // long lineNumber = 1;
             String line1 = "", line2 = "";
             while ((line1 = bf1.readLine()) != null) {
                 line2 = bf2.readLine();
                 if (line2 == null || !line1.equals(line2)) {
                     return 2;
                 }
-                lineNumber++;
+                // lineNumber++;
             }
             if (bf2.readLine() == null) {
                 return 1;
