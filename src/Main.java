@@ -12,6 +12,7 @@ import java.util.ArrayList;
 class Main {
     private static final String OLD_VERSION_PATH = "please_put_old_version_here";
     private static final String NEW_VERSION_PATH = "please_put_new_version_here";
+    private static final String PACKAGE_PATH = "prepare_package";
 
     public static void main(String[] args) {
         List<String> old_ver_list = new ArrayList<>();
@@ -35,15 +36,15 @@ class Main {
         // Create the package
         // createPackage(package_list);
 
-        // test 
-        // String source = "please_put_new_version_here\\A\\test1.txt";
-        // String dest = "dest\\test1.txt";
-        // copyFile(source, dest);
+        String source = "please_put_new_version_here\\C\\C2\\addNew.txt";
+        String target = "files\\C\\C2\\addNew.txt";
+        new File(target).mkdirs();
+        copyFile(source, target);
+        
 
     }
 
 //************************************************************************* the above is main
-
 
 
     /**
@@ -54,7 +55,7 @@ class Main {
     public static void checkModifyFiles(List<String> new_ver_list, List<String> package_list) {
         for (String n : new_ver_list) {
             // System.out.println(n);
-            String o = n.replace("please_put_new_version_here", "please_put_old_version_here");
+            String o = n.replace(NEW_VERSION_PATH, OLD_VERSION_PATH);
             // System.out.println(o);
             int compareResult;
 
@@ -84,6 +85,22 @@ class Main {
         }      
     }
 
+    /**
+     * Copy File from source place to target place 
+     * @param new_ver_list
+     * @param package_list
+     */
+    public static void copyFile(String source, String target) {
+        Path sourceFile = Paths.get(source);
+        Path targetFile = Paths.get(target);
+
+        try {
+            Files.copy(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("File copied!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Create the package
@@ -91,28 +108,10 @@ class Main {
      */
     public static void createPackage(List<String> package_list) {
         for (String source : package_list) {
-            String dest = source.replace("please_put_new_version_here", "prepare_package");
+            String dest = source.replace(NEW_VERSION_PATH, PACKAGE_PATH);
             copyFile(source, dest);
         }
     }
-
-    /**
-     * Copy File
-     * @param source
-     * @param dest
-     */
-    public static void copyFile(String source, String dest) {
-        Path source_Path = Paths.get(source);
-        Path dest_Path = Paths.get(dest);
-
-        try {
-            Files.copy(source_Path, dest_Path, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println(source + "File copied!");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     /**
      * Check deleted files in new version
@@ -122,7 +121,7 @@ class Main {
         // Check deleted file
         for (String o : old_ver_list) {
             // System.out.println(o);
-            String n = o.replace("please_put_old_version_here", "please_put_new_version_here");
+            String n = o.replace(OLD_VERSION_PATH, NEW_VERSION_PATH);
             // System.out.println(n);
 
             Path path1 = Paths.get(o);
