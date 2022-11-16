@@ -1,13 +1,15 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.ArrayList;
-
 
 class Main {
     private static final String OLD_VERSION_PATH = "please_put_old_version_here";
@@ -34,21 +36,32 @@ class Main {
         checkDeletedFiles(old_ver_list);
 
         // Create the package
-        // createPackage(package_list);
-
-        String source = "please_put_new_version_here\\C\\C2\\addNew.txt";
-        String target = "files\\C\\C2\\addNew.txt";
-        new File(target).mkdirs();
-        copyFile(source, target);
-        
+        System.out.println("Prepare Package: " + "\n");
+        createPackage(package_list);
 
     }
 
-//************************************************************************* the above is main
+    // ************************************************************************* the
+    // above is main
 
+    /**
+     * log of the Package List
+     * @param text the log message
+     */
+    public static void log(String text) {
+        try (FileWriter f = new FileWriter("log.txt", true);
+                BufferedWriter b = new BufferedWriter(f);
+                PrintWriter p = new PrintWriter(b);) {
+            p.println(text + "\n");
+
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
 
     /**
      * Check modified (same, not same, added) file
+     * 
      * @param new_ver_list
      * @param package_list
      */
@@ -80,13 +93,14 @@ class Main {
                     break;
                 default:
                     // code block
-                    System.out.println("compareResult error");
+                    System.out.println("compareResult error" + "\n");
             }
-        }      
+        }
     }
 
     /**
-     * Copy File from source place to target place 
+     * Copy File from source place to target place
+     * 
      * @param new_ver_list
      * @param package_list
      */
@@ -96,7 +110,8 @@ class Main {
 
         try {
             Files.copy(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
-            System.out.println("File copied!");
+            // If the directory not exist, create it first, new File(path).mkdirs();
+            System.out.println(source + " copied to package!" + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,17 +119,21 @@ class Main {
 
     /**
      * Create the package
+     * 
      * @param package_list the files needed to be packed
      */
     public static void createPackage(List<String> package_list) {
         for (String source : package_list) {
-            String dest = source.replace(NEW_VERSION_PATH, PACKAGE_PATH);
-            copyFile(source, dest);
+            String package_path = source.replace(NEW_VERSION_PATH, PACKAGE_PATH);
+            new File(package_path).mkdirs();
+            copyFile(source, package_path);
+            log(source);
         }
     }
 
     /**
      * Check deleted files in new version
+     * 
      * @param old_ver_list files in the old version
      */
     public static String checkDeletedFiles(List<String> old_ver_list) {
@@ -139,6 +158,7 @@ class Main {
 
     /**
      * Compare two files
+     * 
      * @param output     = 1, same
      * @param output     = 2, not same
      * @param output     = 3, added
@@ -175,6 +195,7 @@ class Main {
 
     /**
      * find all the files in the directory
+     * 
      * @param list to store the path of the files
      * @param path to store the path of the directory which is needed to be search
      */
