@@ -8,6 +8,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -52,7 +54,7 @@ class Main {
         try (FileWriter f = new FileWriter("log.txt", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-            p.println(text + "\n");
+            p.println(text);
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -118,6 +120,17 @@ class Main {
     }
 
     /**
+     * Get current date and time
+     * @param package_list
+     */
+    public static String getCurrentDateTime() {
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        Date date = new Date(System.currentTimeMillis());
+        String formattedDate = (formatter.format(date));
+        return formattedDate;
+    }
+
+    /**
      * Create the package
      * 
      * @param package_list the files needed to be packed
@@ -127,7 +140,7 @@ class Main {
             String package_path = source.replace(NEW_VERSION_PATH, PACKAGE_PATH);
             new File(package_path).mkdirs();
             copyFile(source, package_path);
-            log(source);
+            log(getCurrentDateTime() + "\n" + source + "\n");
         }
     }
 
