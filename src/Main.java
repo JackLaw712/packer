@@ -52,7 +52,7 @@ class Main {
      * @param text the log message
      */
     public static void log(String text) {
-        try (FileWriter f = new FileWriter("log.txt", true);
+        try (FileWriter f = new FileWriter("package_log.log", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
             p.println(text);
