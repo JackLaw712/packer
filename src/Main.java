@@ -43,10 +43,12 @@ class Main {
 
     }
 
-    // ************************************************************************* the above is main
+    // ************************************************************************* the
+    // above is main
 
     /**
      * log of the Package List
+     * 
      * @param text the log message
      */
     public static void log(String text) {
@@ -101,9 +103,6 @@ class Main {
 
     /**
      * Copy File from source place to target place
-     * 
-     * @param new_ver_list
-     * @param package_list
      */
     public static void copyFile(String source, String target) {
         Path sourceFile = Paths.get(source);
@@ -120,10 +119,9 @@ class Main {
 
     /**
      * Get current date and time
-     * @param package_list
      */
     public static String getCurrentDateTime() {
-        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
         Date date = new Date(System.currentTimeMillis());
         String formattedDate = (formatter.format(date));
         return formattedDate;
@@ -171,10 +169,10 @@ class Main {
     /**
      * Compare two files
      * 
-     * @param output     = 1, same
-     * @param output     = 2, not same
-     * @param output     = 3, added
-     * @param output     = 4, deleted
+     * @param return     1, same
+     * @param return     2, not same
+     * @param return     3, added
+     * @param return     4, deleted
      * @param lineNumber to store the different line, not used in this stage
      */
     public static int filesCompareByLine(String o, String n) throws IOException {
