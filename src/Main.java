@@ -38,7 +38,7 @@ class Main {
         checkDeletedFiles(old_ver_list);
 
         // Create the package
-        System.out.println("Prepare Package: " + "\n");
+        System.out.println("\n" + "Prepare Package: " + "\n");
         createPackage(package_list);
 
     }
@@ -69,6 +69,7 @@ class Main {
      * @param package_list
      */
     public static void checkModifyFiles(List<String> new_ver_list, List<String> package_list) {
+        System.out.println("\n");
         for (String n : new_ver_list) {
             // System.out.println(n);
             String o = n.replace(NEW_VERSION_PATH, OLD_VERSION_PATH);
