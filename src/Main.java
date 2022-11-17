@@ -17,6 +17,14 @@ class Main {
     private static final String OLD_VERSION_PATH = "please_put_old_version_here";
     private static final String NEW_VERSION_PATH = "please_put_new_version_here";
     private static final String PACKAGE_PATH = "prepare_package";
+    public static final String[] ALLOW_FILE = {
+            "css",
+            "html",
+            "java", "js", "json",
+            "m",
+            "scss",
+            "ts"
+    };
 
     public static void main(String[] args) {
         List<String> old_ver_list = new ArrayList<>();
@@ -32,6 +40,7 @@ class Main {
         List<String> package_list = new ArrayList<>();
 
         // Check modified (same, not same, added) file
+        System.out.println("\n");
         checkModifyFiles(new_ver_list, package_list);
 
         // Check deleted files
@@ -46,6 +55,20 @@ class Main {
     // *************************************************************************
     // above is main
 
+    /**
+     * getPathExtension by using the last .
+     * 
+     * @param path
+     */
+    public static String getPathExtension(String path) {
+        int index = path.lastIndexOf('.');
+        if (index > 0) {
+            String extension = path.substring(index + 1);
+            // System.out.println("File extension is " + extension);
+            return extension;
+        }
+        return null;
+    }
 
     /**
      * log of the Package List
@@ -70,36 +93,50 @@ class Main {
      * @param package_list
      */
     public static void checkModifyFiles(List<String> new_ver_list, List<String> package_list) {
-        System.out.println("\n");
+        Boolean fileAllowed = false;
+
         for (String n : new_ver_list) {
-            // System.out.println(n);
-            String o = n.replace(NEW_VERSION_PATH, OLD_VERSION_PATH);
-            // System.out.println(o);
-            int compareResult;
-
-            try {
-                compareResult = filesCompareByLine(o, n);
-            } catch (IOException e) {
-                compareResult = 0;
-                e.printStackTrace();
+            String extension = getPathExtension(n);
+            for (String a : ALLOW_FILE) {
+                if (extension.equals(a)) {
+                    fileAllowed = true;
+                    break;
+                }
             }
 
-            switch (compareResult) {
-                case 1:
-                    System.out.println(n + " file is same" + "\n");
-                    break;
-                case 2:
-                    package_list.add(n);
-                    System.out.println(n + " files is updated" + "\n");
-                    break;
-                case 3:
-                    package_list.add(n);
-                    System.out.println(n + " files is updated: added" + "\n");
-                    break;
-                default:
-                    // code block
-                    System.out.println("compareResult error" + "\n");
+            if (fileAllowed) {
+                fileAllowed = false;
+                // System.out.println(n);
+                String o = n.replace(NEW_VERSION_PATH, OLD_VERSION_PATH);
+                // System.out.println(o);
+                int compareResult;
+
+                try {
+                    compareResult = filesCompareByLine(o, n);
+                } catch (IOException e) {
+                    compareResult = 0;
+                    e.printStackTrace();
+                }
+
+                switch (compareResult) {
+                    case 1:
+                        System.out.println(n + " file is same" + "\n");
+                        break;
+                    case 2:
+                        package_list.add(n);
+                        System.out.println(n + " files is updated" + "\n");
+                        break;
+                    case 3:
+                        package_list.add(n);
+                        System.out.println(n + " files is updated: added" + "\n");
+                        break;
+                    default:
+                        // code block
+                        System.out.println("compareResult error" + "\n");
+                }
+
             }
+
         }
     }
 
@@ -149,18 +186,31 @@ class Main {
      * @param old_ver_list files in the old version
      */
     public static void checkDeletedFiles(List<String> old_ver_list) {
-        // Check deleted file
         for (String o : old_ver_list) {
-            // System.out.println(o);
-            String n = o.replace(OLD_VERSION_PATH, NEW_VERSION_PATH);
-            // System.out.println(n);
+            Boolean fileAllowed = false;
 
-            Path path1 = Paths.get(o);
-            Path path2 = Paths.get(n);
+            String extension = getPathExtension(o);
+            for (String a : ALLOW_FILE) {
+                if (extension.equals(a)) {
+                    fileAllowed = true;
+                    break;
+                }
+            }
 
-            if (path1.toFile().exists() && !path2.toFile().exists()) {
-                String result = (o + " deleted old file" + "\n");
-                System.out.println(result);
+            if (fileAllowed) {
+                fileAllowed = false;
+                // System.out.println(o);
+                String n = o.replace(OLD_VERSION_PATH, NEW_VERSION_PATH);
+                // System.out.println(n);
+
+                Path path1 = Paths.get(o);
+                Path path2 = Paths.get(n);
+
+                if (path1.toFile().exists() && !path2.toFile().exists()) {
+                    String result = (o + " deleted old file" + "\n");
+                    System.out.println(result);
+                }
+
             }
         }
     }
