@@ -89,11 +89,11 @@ class Main {
                     break;
                 case 2:
                     package_list.add(n);
-                    System.out.println(n + " files is not same" + "\n");
+                    System.out.println(n + " files is updated" + "\n");
                     break;
                 case 3:
                     package_list.add(n);
-                    System.out.println(n + " added new file" + "\n");
+                    System.out.println(n + " files is updated: added" + "\n");
                     break;
                 default:
                     // code block
@@ -112,7 +112,7 @@ class Main {
         try {
             Files.copy(sourceFile, targetFile, StandardCopyOption.REPLACE_EXISTING);
             // If the directory not exist, create it first, new File(path).mkdirs();
-            System.out.println(source + " copied to package!" + "\n");
+            System.out.println(source + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
