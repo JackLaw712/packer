@@ -1,12 +1,15 @@
-2022-11-16 at 22:35:07 HKT
-please_put_new_version_here\D\D.txt
+2022-11-17 at 10:17:59 HKT
+please_put_new_version_here/design-docs/app_config/aa_prod_mapping-FTLAGY-1.0.json
 
-2022-11-16 at 22:35:07 HKT
-please_put_new_version_here\outsider.txt
+2022-11-17 at 10:22:08 HKT
+please_put_new_version_here/design-docs/app_config/cpon1_illustration_tpl-FTL0001-1.0/1pay2.html
 
-2022-11-16 at 22:35:26 HKT
-please_put_new_version_here\D\D.txt
+2022-11-17 at 10:22:08 HKT
+please_put_new_version_here/design-docs/app_config/aa_prod_mapping-FTLAGY-1.0.json
 
-2022-11-16 at 22:35:26 HKT
-please_put_new_version_here\outsider.txt
+2022-11-17 at 10:23:06 HKT
+please_put_new_version_here/design-docs/app_config/cpon1_illustration_tpl-FTL0001-1.0/1pay2.html
+
+2022-11-17 at 10:23:06 HKT
+please_put_new_version_here/design-docs/app_config/aa_prod_mapping-FTLAGY-1.0.json
 
