@@ -43,8 +43,9 @@ class Main {
 
     }
 
-    // ************************************************************************* the
+    // *************************************************************************
     // above is main
+
 
     /**
      * log of the Package List
@@ -147,7 +148,7 @@ class Main {
      * 
      * @param old_ver_list files in the old version
      */
-    public static String checkDeletedFiles(List<String> old_ver_list) {
+    public static void checkDeletedFiles(List<String> old_ver_list) {
         // Check deleted file
         for (String o : old_ver_list) {
             // System.out.println(o);
@@ -160,11 +161,8 @@ class Main {
             if (path1.toFile().exists() && !path2.toFile().exists()) {
                 String result = (o + " deleted old file" + "\n");
                 System.out.println(result);
-                return result;
             }
-
         }
-        return null;
     }
 
     /**
