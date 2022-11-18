@@ -94,9 +94,11 @@ class Main {
      */
     public static void checkModifyFiles(List<String> new_ver_list, List<String> package_list) {
         Boolean fileAllowed = false;
-
-        for (String n : new_ver_list) {
+        for (String n : new_ver_list) {         
             String extension = getPathExtension(n);
+            if (extension == null) {
+                continue;
+            }
             for (String a : ALLOW_FILE) {
                 if (extension.equals(a)) {
                     fileAllowed = true;
@@ -186,10 +188,12 @@ class Main {
      * @param old_ver_list files in the old version
      */
     public static void checkDeletedFiles(List<String> old_ver_list) {
+        Boolean fileAllowed = false;
         for (String o : old_ver_list) {
-            Boolean fileAllowed = false;
-
             String extension = getPathExtension(o);
+            if (extension == null) {
+                continue;
+            }
             for (String a : ALLOW_FILE) {
                 if (extension.equals(a)) {
                     fileAllowed = true;
