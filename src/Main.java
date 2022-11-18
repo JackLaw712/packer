@@ -179,6 +179,7 @@ class Main {
             String package_path = source.replace(NEW_VERSION_PATH, PACKAGE_PATH);
             new File(package_path).mkdirs();
             copyFile(source, package_path);
+            log(source);
         }
     }
 
@@ -279,7 +280,6 @@ class Main {
                 }
             }
         } else {
-            log(path + "directory is not exists");
             System.out.println(path + "directory is not exists");
         }
     }
