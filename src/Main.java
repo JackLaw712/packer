@@ -27,6 +27,8 @@ class Main {
     };
 
     public static void main(String[] args) {
+        log("Package log begin: " + getCurrentDateTime());
+
         List<String> old_ver_list = new ArrayList<>();
         getAllFile(old_ver_list, OLD_VERSION_PATH);
         // System.out.println(old_ver_list);
@@ -46,7 +48,7 @@ class Main {
         // Check deleted files
         checkDeletedFiles(old_ver_list);
 
-        // Create the package
+        // Create the package  
         System.out.println("\n" + "Prepare Package: " + "\n");
         createPackage(package_list);
 
@@ -76,6 +78,7 @@ class Main {
      * @param text the log message
      */
     public static void log(String text) {
+        new File("prepare_package").mkdirs();
         try (FileWriter f = new FileWriter(PACKAGE_PATH + "//package_log.log", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
@@ -112,7 +115,7 @@ class Main {
                 // System.out.println(n);
                 String o = n.replace(NEW_VERSION_PATH, OLD_VERSION_PATH);
                 // System.out.println(o);
-                int compareResult;
+                int compareResult = 0;
 
                 compareResult = filesCompareByLine(o, n);
 
@@ -129,7 +132,6 @@ class Main {
                         System.out.println(n + " files is updated: added" + "\n");
                         break;
                     default:
-                        // code block
                         log("filesCompareByLine error: " + n);
                         System.out.println(n + "compare result error" + "\n");
                 }
@@ -220,11 +222,11 @@ class Main {
     /**
      * Compare two files
      * 
-     * @param return    0, error
-     * @param return     1, same
-     * @param return     2, not same
-     * @param return     3, added
-     * @param return     4, deleted
+     * @param return 0, error
+     * @param return 1, same
+     * @param return 2, not same
+     * @param return 3, added
+     * @param return 4, deleted
      * @param lineNumber to store the different line, not used in this stage
      */
     public static int filesCompareByLine(String o, String n) {
@@ -236,8 +238,9 @@ class Main {
         if (path1.toFile().exists() && !path2.toFile().exists()) {
             return 4;
         }
-        try (BufferedReader bf1 = Files.newBufferedReader(path1);
-                BufferedReader bf2 = Files.newBufferedReader(path2)) {
+        try {
+            BufferedReader bf1 = Files.newBufferedReader(path1);
+            BufferedReader bf2 = Files.newBufferedReader(path2);
             // long lineNumber = 1;
             String line1 = "", line2 = "";
             while ((line1 = bf1.readLine()) != null) {
@@ -280,7 +283,8 @@ class Main {
                 }
             }
         } else {
-            // System.out.println(path + "directory is not exists" + "\n");
+            // log(path + "directory is not exists" + "\n");
+            System.out.println(path + "directory is not exists" + "\n");
         }
     }
 
