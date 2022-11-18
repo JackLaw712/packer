@@ -79,7 +79,8 @@ class Main {
         try (FileWriter f = new FileWriter("package_log.log", true);
                 BufferedWriter b = new BufferedWriter(f);
                 PrintWriter p = new PrintWriter(b);) {
-            p.println(text);
+            p.print(getCurrentDateTime() + "\n");
+            p.println(text + "\n");
 
         } catch (IOException i) {
             i.printStackTrace();
@@ -134,7 +135,7 @@ class Main {
                         break;
                     default:
                         // code block
-                        System.out.println("compareResult error" + "\n");
+                        System.out.println(n + "compareResult error" + "\n");
                 }
 
             }
@@ -178,7 +179,6 @@ class Main {
             String package_path = source.replace(NEW_VERSION_PATH, PACKAGE_PATH);
             new File(package_path).mkdirs();
             copyFile(source, package_path);
-            log(getCurrentDateTime() + "\n" + source + "\n");
         }
     }
 
@@ -279,7 +279,8 @@ class Main {
                 }
             }
         } else {
-            System.out.println("directory is not exists");
+            log(path + "directory is not exists");
+            System.out.println(path + "directory is not exists");
         }
     }
 
