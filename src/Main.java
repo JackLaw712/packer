@@ -114,12 +114,7 @@ class Main {
                 // System.out.println(o);
                 int compareResult;
 
-                try {
-                    compareResult = filesCompareByLine(o, n);
-                } catch (IOException e) {
-                    compareResult = 0;
-                    e.printStackTrace();
-                }
+                compareResult = filesCompareByLine(o, n);
 
                 switch (compareResult) {
                     case 1:
@@ -135,7 +130,8 @@ class Main {
                         break;
                     default:
                         // code block
-                        System.out.println(n + "compareResult error" + "\n");
+                        log("filesCompareByLine error: " + n);
+                        System.out.println(n + "compare result error" + "\n");
                 }
 
             }
@@ -156,6 +152,7 @@ class Main {
             System.out.println(source + "\n");
         } catch (IOException e) {
             e.printStackTrace();
+            log("copyFile error: " + source);
         }
     }
 
@@ -223,13 +220,14 @@ class Main {
     /**
      * Compare two files
      * 
+     * @param return    0, error
      * @param return     1, same
      * @param return     2, not same
      * @param return     3, added
      * @param return     4, deleted
      * @param lineNumber to store the different line, not used in this stage
      */
-    public static int filesCompareByLine(String o, String n) throws IOException {
+    public static int filesCompareByLine(String o, String n) {
         Path path1 = Paths.get(o);
         Path path2 = Paths.get(n);
         if (path2.toFile().exists() && !path1.toFile().exists()) {
@@ -254,6 +252,8 @@ class Main {
             } else {
                 return 2;
             }
+        } catch (Exception e) {
+            return 0;
         }
     }
 
@@ -280,7 +280,7 @@ class Main {
                 }
             }
         } else {
-            System.out.println(path + "directory is not exists");
+            // System.out.println(path + "directory is not exists" + "\n");
         }
     }
 
