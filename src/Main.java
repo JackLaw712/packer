@@ -14,8 +14,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 class Main {
-    private static final String OLD_VERSION_PATH = "please_put_old_version_here";
-    private static final String NEW_VERSION_PATH = "please_put_new_version_here";
+    private static final String OLD_VERSION_PATH = "please_put_old_version";
+    private static final String NEW_VERSION_PATH = "please_put_new_version";
     private static final String PACKAGE_PATH = "prepare_package";
     public static final String[] ALLOW_FILE = {
             "css",
